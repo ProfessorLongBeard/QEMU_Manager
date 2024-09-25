@@ -49,3 +49,11 @@ void widget_set_active(GtkWidget *widget, gboolean active) {
 
     gtk_widget_set_sensitive(widget, active);
 }
+
+void widget_destroy(GtkWidget *widget) {
+    if (!widget) {
+        return;
+    }
+
+    gtk_widget_destroy(widget);
+}
