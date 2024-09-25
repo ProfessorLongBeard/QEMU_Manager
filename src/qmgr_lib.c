@@ -37,15 +37,10 @@ gint qmgr_init(qmgr_t **mgr) {
 void qmgr_cleanup(qmgr_t *mgr) {
     if (mgr) {
         g_object_unref(mgr->builder);
-        g_object_unref(mgr->display);
-        g_object_unref(mgr->screen);
+
 
         if (mgr->widgets) {
             g_hash_table_destroy(mgr->widgets);
-        }
-
-        if (mgr->err) {
-            g_free(mgr->err);
         }
 
         g_free(mgr);
