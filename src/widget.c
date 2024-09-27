@@ -23,7 +23,7 @@ GtkWidget *widget_get_widget_by_name(const gchar *widget_name) {
     widget = (GtkWidget *)g_hash_table_lookup(mgr->widgets, widget_name);
 
     if (!widget) {
-        g_print("Failed to locate widget %s!\n", widget_name);
+        msgbox_err("Failed to locate widget %s!\n", widget_name);
         return NULL;
     }
 
