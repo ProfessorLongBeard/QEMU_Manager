@@ -7,4 +7,4 @@ NOTE:
 QEMU Manger demo:
 
 
-    ![qmgr 1](https://github.com/ProfessorLongBeard/QEMU_Manager/blob/dev/img/qmgr_1.png)
+    ![Alt text](https://github.com/ProfessorLongBeard/QEMU_Manager/blob/dev/img/qmgr_1.png?raw=true)
