@@ -30,6 +30,8 @@ gint qmgr_init(qmgr_t **mgr) {
         return -1;
     }
 
+    m->vm_config = json_object_new_object();
+
     *mgr = m;
     return 0;
 }
@@ -41,6 +43,10 @@ void qmgr_cleanup(qmgr_t *mgr) {
 
         if (mgr->widgets) {
             g_hash_table_destroy(mgr->widgets);
+        }
+
+        if (mgr->vm_config) {
+            json_object_put(mgr->vm_config);
         }
 
         g_free(mgr);

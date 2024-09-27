@@ -3,17 +3,21 @@
 
 #include <stdint.h>
 #include <gtk/gtk.h>
+#include <json-c/json.h>
+
 
 
 
 typedef struct {
-    GError          *err;
-    GtkBuilder      *builder;
-    GHashTable      *widgets;
+    GError              *err;
+    GtkBuilder          *builder;
+    GHashTable          *widgets;
 
-    GtkCssProvider  *css_provider;
-    GdkDisplay      *display;
-    GdkScreen       *screen;
+    GtkCssProvider      *css_provider;
+    GdkDisplay          *display;
+    GdkScreen           *screen;
+
+    struct json_object  *vm_config;
 } qmgr_t;
 
 

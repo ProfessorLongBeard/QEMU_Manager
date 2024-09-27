@@ -59,7 +59,6 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
 
     if (!disk_size_str) {
         msgbox_err("Failed to get HDD size entry!\n");
-        g_free((void *)disk_type);
         return;
     }
 
@@ -79,7 +78,6 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
     if (!chooser) {
         msgbox_err("Failed to get HDD save file chooser!\n");
         widget_destroy(dialog);
-        g_free((void *)disk_type);
         return;
     }
 
@@ -89,7 +87,6 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
 
     if (ret == GTK_RESPONSE_CANCEL || ret == GTK_RESPONSE_DELETE_EVENT || ret != GTK_RESPONSE_ACCEPT) {
         widget_destroy(dialog);
-        g_free((void *)disk_type);
         return;
     }
 
@@ -99,6 +96,17 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
     g_snprintf(tmp, sizeof(tmp), "%s.%s", disk_path, disk_type);
     gtk_entry_set_text(GTK_ENTRY(widget_get_widget_by_name("qemu_hdd_path_entry")), tmp);
 
-    g_free((void *)disk_path);
-    g_free((void *)disk_type);
+    struct json_object *hdd_cfg_array = json_object_new_array();
+    struct json_object *hdd_cfg = json_object_new_object();
+
+    if (!hdd_cfg || !hdd_cfg_array) {
+        msgbox_err("Failed to create QEMU HDD JSON config!\n");
+        return;
+    }
+
+    json_object_object_add(hdd_cfg, "HDD_SIZE", json_object_new_int(disk_size));
+    json_object_object_add(hdd_cfg, "HDD_PATH", json_object_new_string(disk_path));
+
+    json_object_array_add(hdd_cfg_array, hdd_cfg);
+    json_object_object_add(mgr->vm_config, "QEMU_HDD_CONFIG", hdd_cfg_array);
 }
