@@ -45,10 +45,13 @@ int main(int argc, char *argv[]) {
     builder_load_widget("qemu_cpu_dropdown");
     builder_load_widget("qemu_cpu_cores_dropdown");
     builder_load_widget("qemu_save_vm_entry");
-    builder_load_widget("qemu_save_vm_btn");
-    builder_load_widget("qemu_start_vm_btn");
-    builder_load_widget("qemu_load_vm_btn");
     builder_load_widget("qemu_memory_entry");
+
+    builder_load_widget("qemu_save_vm_btn");
+    g_signal_connect(GTK_WIDGET(widget_get_widget_by_name("qemu_save_vm_btn")), "clicked", G_CALLBACK(cb_save_vm), NULL);
+
+    builder_load_widget("qemu_load_vm_btn");
+    builder_load_widget("qemu_start_vm_btn");
 
     // HDD tab
     builder_load_widget("hdd_tab");

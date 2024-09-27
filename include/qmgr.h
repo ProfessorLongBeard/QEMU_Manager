@@ -21,5 +21,6 @@
 #include <callbacks/cb_open_fd.h>
 #include <callbacks/cb_open_rom.h>
 #include <callbacks/cb_hdd_create.h>
+#include <callbacks/cb_save_vm.h>
 
 #endif
