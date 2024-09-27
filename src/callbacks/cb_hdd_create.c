@@ -105,7 +105,7 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
     }
 
     json_object_object_add(hdd_cfg, "HDD_SIZE", json_object_new_int(disk_size));
-    json_object_object_add(hdd_cfg, "HDD_PATH", json_object_new_string(disk_path));
+    json_object_object_add(hdd_cfg, "HDD_PATH", json_object_new_string(tmp));
 
     json_object_array_add(hdd_cfg_array, hdd_cfg);
     json_object_object_add(mgr->vm_config, "QEMU_HDD_CONFIG", hdd_cfg_array);
