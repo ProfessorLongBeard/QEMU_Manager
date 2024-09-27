@@ -1,0 +1,11 @@
+textview {
+    font-size: 16px;
+}
+
+textview text {
+    color: white;
+}
+
+label {
+    color: white;
+}
