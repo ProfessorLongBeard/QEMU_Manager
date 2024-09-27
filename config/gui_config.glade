@@ -4,15 +4,540 @@
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkWindow" id="main_win">
     <property name="name">main_win</property>
-    <property name="width-request">1000</property>
-    <property name="height-request">950</property>
+    <property name="width-request">640</property>
+    <property name="height-request">350</property>
     <property name="can-focus">False</property>
     <property name="resizable">False</property>
     <child>
-      <object class="GtkFixed" id="main_fixed">
-        <property name="name">main_fixed</property>
+      <object class="GtkNotebook" id="main_notebook">
+        <property name="name">main_notebook</property>
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
+        <property name="can-focus">True</property>
+        <child>
+          <object class="GtkFixed" id="general_tab_fixed">
+            <property name="name">general_tab_fixed</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkLabel" id="qemu_arch_label">
+                <property name="name">qemu_arch_label</property>
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Architecture</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="qemu_arch_dropdown">
+                <property name="name">qemu_arch_dropdown</property>
+                <property name="width-request">200</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="active">1</property>
+                <items>
+                  <item translatable="yes">qemu-system-arm</item>
+                  <item translatable="yes">qemu-system-aarch64</item>
+                </items>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">40</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="qemu_machine_label">
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Machine</property>
+              </object>
+              <packing>
+                <property name="x">225</property>
+                <property name="y">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="qemu_machine_dropdown">
+                <property name="name">qemu_machine_dropdown</property>
+                <property name="width-request">200</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="active">0</property>
+                <items>
+                  <item translatable="yes">virt</item>
+                </items>
+              </object>
+              <packing>
+                <property name="x">225</property>
+                <property name="y">40</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="qemu_cpu_label">
+                <property name="name">qemu_cpu_label</property>
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">CPU</property>
+              </object>
+              <packing>
+                <property name="x">440</property>
+                <property name="y">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="qemu_cpu_dropdown">
+                <property name="name">qemu_cpu_dropdown</property>
+                <property name="width-request">120</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="active">1</property>
+                <items>
+                  <item translatable="yes">Cortex-A9</item>
+                  <item translatable="yes">Cortex-A53</item>
+                  <item translatable="yes">Cortex-A57</item>
+                </items>
+              </object>
+              <packing>
+                <property name="x">440</property>
+                <property name="y">40</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="qemu_cpu_cores_label">
+                <property name="name">qemu_cpu_cores_label</property>
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Cores</property>
+              </object>
+              <packing>
+                <property name="x">575</property>
+                <property name="y">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="qemu_cpu_cores_dropdown">
+                <property name="name">qemu_cpu_cores_dropdown</property>
+                <property name="width-request">55</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="active">0</property>
+                <items>
+                  <item translatable="yes">1</item>
+                  <item translatable="yes">2</item>
+                  <item translatable="yes">3</item>
+                  <item translatable="yes">4</item>
+                  <item translatable="yes">5</item>
+                  <item translatable="yes">6</item>
+                </items>
+              </object>
+              <packing>
+                <property name="x">575</property>
+                <property name="y">40</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="qemu_vm_path_table">
+                <property name="name">qemu_vm_path_table</property>
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">VM path</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">165</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="qemu_save_vm_entry">
+                <property name="name">qemu_save_vm_entry</property>
+                <property name="width-request">500</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">200</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="qemu_save_vm_btn">
+                <property name="label" translatable="yes">Save VM</property>
+                <property name="name">qemu_save_vm_btn</property>
+                <property name="width-request">115</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="x">515</property>
+                <property name="y">200</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="qemu_start_vm_btn">
+                <property name="label" translatable="yes">Start VM</property>
+                <property name="name">qemu_start_vm_btn</property>
+                <property name="width-request">135</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">275</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="qemu_load_vm_btn">
+                <property name="label" translatable="yes">Load VM</property>
+                <property name="name">qemu_load_vm_btn</property>
+                <property name="width-request">115</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="x">515</property>
+                <property name="y">240</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="qemu_memory_label">
+                <property name="name">qemu_memory_label</property>
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Memory</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">80</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="qemu_memory_entry">
+                <property name="name">qemu_memory_entry</property>
+                <property name="width-request">135</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="text" translatable="yes">4096</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">115</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="qemu_memory_mb_label">
+                <property name="name">qemu_memory_mb_label</property>
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">MB</property>
+              </object>
+              <packing>
+                <property name="x">180</property>
+                <property name="y">115</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="general_tab">
+            <property name="name">general_tab</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">General</property>
+          </object>
+          <packing>
+            <property name="tab-fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFixed" id="hdd_tab_fixed">
+            <property name="name">hdd_tab_fixed</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkLabel" id="qemu_hdd_format_label">
+                <property name="name">qemu_hdd_format_label</property>
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Disk format</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="qemu_hdd_format_dropdown">
+                <property name="name">qemu_hdd_format_dropdown</property>
+                <property name="width-request">130</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="active">0</property>
+                <items>
+                  <item translatable="yes">raw</item>
+                  <item translatable="yes">qcow2</item>
+                </items>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">40</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="qemu_hdd_size_label">
+                <property name="name">qemu_hdd_size_label</property>
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Disk size</property>
+              </object>
+              <packing>
+                <property name="x">155</property>
+                <property name="y">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="qemu_hdd_size_entry">
+                <property name="name">qemu_hdd_size_entry</property>
+                <property name="width-request">5</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="text" translatable="yes">2048</property>
+              </object>
+              <packing>
+                <property name="x">155</property>
+                <property name="y">40</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="qemu_hdd_size_mb_label">
+                <property name="name">qemu_hdd_size_mb_label</property>
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">MB</property>
+              </object>
+              <packing>
+                <property name="x">325</property>
+                <property name="y">40</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="qemu_hdd_path_label">
+                <property name="name">qemu_hdd_path_label</property>
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">HDD path</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">115</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="qemu_hdd_path_entry">
+                <property name="name">qemu_hdd_path_entry</property>
+                <property name="width-request">500</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">150</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="qemu_create_hdd_btn">
+                <property name="label" translatable="yes">Create HDD</property>
+                <property name="name">qemu_create_hdd_btn</property>
+                <property name="width-request">115</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="x">515</property>
+                <property name="y">150</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="hdd_tab">
+            <property name="name">hdd_tab</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">HDD</property>
+          </object>
+          <packing>
+            <property name="position">1</property>
+            <property name="tab-fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFixed" id="bios_tab_fixed">
+            <property name="name">bios_tab_fixed</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkCheckButton" id="qemu_uefi_bios_check">
+                <property name="label" translatable="yes">UEFI mode</property>
+                <property name="name">qemu_uefi_bios_check</property>
+                <property name="width-request">135</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="draw-indicator">True</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">10</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="qemu_uefi_bios_entry">
+                <property name="name">qemu_uefi_bios_entry</property>
+                <property name="width-request">500</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="editable">False</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">125</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="qemu_uefi_bios_label">
+                <property name="name">qemu_uefi_bios_label</property>
+                <property name="width-request">35</property>
+                <property name="height-request">5</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">UEFI BIOS image</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">105</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="qemu_open_fd_btn">
+                <property name="label" translatable="yes">Open FD img</property>
+                <property name="name">qemu_open_fd_btn</property>
+                <property name="width-request">115</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="sensitive">False</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="x">515</property>
+                <property name="y">125</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="qemu_rom_bios_label">
+                <property name="name">qemu_rom_bios_label</property>
+                <property name="width-request">35</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">ROM loader image</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">165</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="qemu_rom_bios_entry">
+                <property name="name">qemu_rom_bios_entry</property>
+                <property name="width-request">500</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">200</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="qemu_open_rom_btn">
+                <property name="label" translatable="yes">Open ROM img</property>
+                <property name="name">qemu_open_rom_btn</property>
+                <property name="width-request">115</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="x">515</property>
+                <property name="y">200</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="bios_tab">
+            <property name="name">bios_tab</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">BIOS</property>
+          </object>
+          <packing>
+            <property name="position">2</property>
+            <property name="tab-fill">False</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>
