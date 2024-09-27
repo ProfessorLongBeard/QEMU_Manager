@@ -5,6 +5,8 @@ NOTE:
 
 
 QEMU Manger demo:
+![qmgr_1](https://github.com/user-attachments/assets/7082de93-fbd4-41e7-b587-85f4cae66a0f)
 
+![qmgr_2](https://github.com/user-attachments/assets/91a01d50-57f4-4631-9b17-ee1064fdba04)
 
-    ![Alt text](https://github.com/ProfessorLongBeard/QEMU_Manager/blob/dev/img/qmgr_1.png?raw=true)
+![qmgr_3](https://github.com/user-attachments/assets/1e63ce90-f7d3-404b-a60e-a47d1e1df46e)
