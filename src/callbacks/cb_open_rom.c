@@ -59,5 +59,23 @@ void cb_open_rom(GtkWidget *btn, gpointer data) {
 
     widget_destroy(dialog);
     gtk_entry_set_text(GTK_ENTRY(widget_get_widget_by_name("qemu_rom_bios_entry")), rom_file);
-    g_free((void *)rom_file);
+
+    struct json_object *rom_config_array = json_object_new_array();
+    struct json_object *rom_config = json_object_new_object();
+
+    if (!rom_config || !rom_config_array) {
+        msgbox_err("Failed to create ROM JSON config!\n");
+        return;
+    }
+
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget_get_widget_by_name("qemu_uefi_bios_check"))) == true) {
+        json_object_object_add(rom_config, "ROM_ENABLED", json_object_new_string("true"));
+    } else {
+        json_object_object_add(rom_config, "ROM_ENABLED", json_object_new_string("false"));
+    }
+
+    json_object_object_add(rom_config, "ROM_FW", json_object_new_string(rom_file));
+ 
+    json_object_array_add(rom_config_array, rom_config);
+    json_object_object_add(mgr->vm_config, "QEMU_ROM_CONFIG", rom_config_array);
 }
