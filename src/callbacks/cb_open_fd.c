@@ -59,5 +59,23 @@ void cb_open_fd(GtkWidget *btn, gpointer data) {
 
     widget_destroy(dialog);
     gtk_entry_set_text(GTK_ENTRY(widget_get_widget_by_name("qemu_uefi_bios_entry")), fd_file);
-    g_free((void *)fd_file);
+
+    struct json_object *uefi_config_array = json_object_new_array();
+    struct json_object *uefi_config = json_object_new_object();
+
+    if (!uefi_config || !uefi_config_array) {
+        msgbox_err("Failed to create UEFI JSON config!\n");
+        return;
+    }
+
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget_get_widget_by_name("qemu_uefi_bios_check"))) == true) {
+        json_object_object_add(uefi_config, "UEFI_ENABLED", json_object_new_string("true"));
+    } else {
+        json_object_object_add(uefi_config, "UEFI_ENABLED", json_object_new_string("false"));
+    }
+
+    json_object_object_add(uefi_config, "UEFI_FW", json_object_new_string(fd_file));
+ 
+    json_object_array_add(uefi_config_array, uefi_config);
+    json_object_object_add(mgr->vm_config, "QEMU_UEFI_CONFIG", uefi_config_array);
 }
