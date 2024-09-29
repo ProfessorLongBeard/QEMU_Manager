@@ -1,4 +1,8 @@
 #include <qmgr.h>
+#include <glib.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 
 
@@ -10,10 +14,11 @@
 
 void cb_hdd_create(GtkWidget *btn, gpointer data) {
     gint ret = 0;
+    struct stat st;
     GtkWidget *disk_format = NULL;
     gint active_format_idx = 0;
     const gchar *disk_type = NULL, *disk_size_str = NULL;
-    guint disk_size = 0;
+    gint disk_size = 0;
     GtkTreeIter iter;
     GtkTreeModel *model = NULL;
     GtkWidget *dialog = NULL;
@@ -31,14 +36,7 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
     if (!btn) {
         return;
     }
-
-    active_format_idx = gtk_combo_box_get_active(GTK_COMBO_BOX(widget_get_widget_by_name("qemu_hdd_format_dropdown")));
-
-    if (active_format_idx < 0) {
-        msgbox_info("Invalid HDD format dropdown index %d!\n", active_format_idx);
-        return;
-    }
-
+    
     model = gtk_combo_box_get_model(GTK_COMBO_BOX(widget_get_widget_by_name("qemu_hdd_format_dropdown")));
 
     if (!model) {
@@ -62,7 +60,7 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
         return;
     }
 
-    disk_size = strtoull(disk_size_str, NULL, 10);
+    disk_size = strtoul(disk_size_str, NULL, 10);
 
     dialog = gtk_file_chooser_dialog_new("Save HDD",
         GTK_WINDOW(widget_get_widget_by_name("main_win")),
@@ -109,4 +107,39 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
 
     json_object_array_add(hdd_cfg_array, hdd_cfg);
     json_object_object_add(mgr->vm_config, "QEMU_HDD_CONFIG", hdd_cfg_array);
+
+    if (stat(tmp, &st) == 0) {
+        // TODO: Confirm overwrite
+        remove(tmp);
+    }
+
+    GSubprocess *sp = NULL;
+    const gchar disk_type_cmd[16], disk_size_cmd[16];
+
+    // NOTE: We do -f%s without spaces because fetching the disk_type dropdown entry seems to conatin an extra space. This will *hopefully*
+    // be fixed in later revisions of this tool
+    g_snprintf((gchar *)disk_type_cmd, sizeof(disk_type_cmd), "-f%s", disk_type);
+    g_snprintf((gchar *)disk_size_cmd, sizeof(disk_size_cmd), "%dM", disk_size);
+
+    const gchar *hdd_create_cmd[] = {"/usr/bin/qemu-img",
+        "create",
+        disk_type_cmd,
+        tmp,
+        disk_size_cmd,
+        NULL
+    };
+
+    sp = g_subprocess_newv(hdd_create_cmd,
+        G_SUBPROCESS_FLAGS_STDOUT_PIPE,
+        &mgr->err);
+
+    if (!sp) {
+        msgbox_err("Failed to start sub-process!\n");
+    }
+
+    if (g_subprocess_wait_check(sp, NULL, &mgr->err) == true) {
+        msgbox_info("Created: %s!\n", g_path_get_basename(tmp));
+    } else {
+        msgbox_err("Failed to create: %s!\n", g_path_get_basename(tmp));
+    }
 }
