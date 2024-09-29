@@ -399,6 +399,22 @@
                 <property name="y">150</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkButton" id="qemu_load_hdd_btn">
+                <property name="label" translatable="yes">Load HDD</property>
+                <property name="name">qemu_load_hdd_btn</property>
+                <property name="width-request">115</property>
+                <property name="height-request">35</property>
+                <property name="visible">True</property>
+                <property name="sensitive">False</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="x">515</property>
+                <property name="y">190</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="position">1</property>
