@@ -39,6 +39,7 @@ gint qmgr_init(qmgr_t **mgr) {
 void qmgr_cleanup(qmgr_t *mgr) {
     if (mgr) {
         g_object_unref(mgr->builder);
+        g_object_unref(mgr->css_provider);
 
 
         if (mgr->widgets) {
