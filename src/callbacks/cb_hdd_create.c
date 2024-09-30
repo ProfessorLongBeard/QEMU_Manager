@@ -81,11 +81,15 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
         GTK_RESPONSE_ACCEPT,
         NULL);
 
+    if (!dialog) {
+        msgbox_err("Failed to start dialog!\n");
+        return;
+    }
+
     chooser = GTK_FILE_CHOOSER(dialog);
 
     if (!chooser) {
         msgbox_err("Failed to get HDD save file chooser!\n");
-        widget_destroy(dialog);
         widget_set_active(btn, true);
         return;
     }
