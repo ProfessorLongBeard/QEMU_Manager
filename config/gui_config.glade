@@ -406,7 +406,6 @@
                 <property name="width-request">115</property>
                 <property name="height-request">35</property>
                 <property name="visible">True</property>
-                <property name="sensitive">False</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
               </object>
