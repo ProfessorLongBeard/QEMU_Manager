@@ -36,11 +36,17 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
     if (!btn) {
         return;
     }
+
+    if (widget_get_active(btn) == true) {
+        widget_set_active(btn, false);
+    }
     
     model = gtk_combo_box_get_model(GTK_COMBO_BOX(widget_get_widget_by_name("qemu_hdd_format_dropdown")));
 
     if (!model) {
         msgbox_info("Failed to get HDD format dropdown model!\n");
+
+        widget_set_active(btn, true);
         return;
     }
 
@@ -49,6 +55,8 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
 
         if (!disk_type) {
             msgbox_err("Failed to get disk format type!\n");
+
+            widget_set_active(btn, true);
             return;
         }
     }
@@ -57,6 +65,8 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
 
     if (!disk_size_str) {
         msgbox_err("Failed to get HDD size entry!\n");
+
+        widget_set_active(btn, true);
         return;
     }
 
@@ -76,6 +86,7 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
     if (!chooser) {
         msgbox_err("Failed to get HDD save file chooser!\n");
         widget_destroy(dialog);
+        widget_set_active(btn, true);
         return;
     }
 
@@ -85,6 +96,7 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
 
     if (ret == GTK_RESPONSE_CANCEL || ret == GTK_RESPONSE_DELETE_EVENT || ret != GTK_RESPONSE_ACCEPT) {
         widget_destroy(dialog);
+        widget_set_active(btn, true);
         return;
     }
 
@@ -99,6 +111,7 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
 
     if (!hdd_cfg || !hdd_cfg_array) {
         msgbox_err("Failed to create QEMU HDD JSON config!\n");
+        widget_set_active(btn, true);
         return;
     }
 
@@ -135,11 +148,16 @@ void cb_hdd_create(GtkWidget *btn, gpointer data) {
 
     if (!sp) {
         msgbox_err("Failed to start sub-process!\n");
+        widget_set_active(btn, true);
+        return;
     }
 
     if (g_subprocess_wait_check(sp, NULL, &mgr->err) == true) {
-        msgbox_info("Created: %s!\n", g_path_get_basename(tmp));
-    } else {
-        msgbox_err("Failed to create: %s!\n", g_path_get_basename(tmp));
+        msgbox_info("Created: %s!\n", g_path_get_basename(disk_path));
+        widget_set_active(btn, true);
+        return;
     }
+    
+    msgbox_err("Failed to create: %s!\n", g_path_get_basename(disk_path));
+    widget_set_active(btn, true);
 }
