@@ -93,7 +93,7 @@ gint msgbox_err(const gchar *msg, ...) {
     msg_tmp = g_malloc(strlen(msg) + 1024);
 
     if (!msg_tmp) {
-        g_print("Failed to allocate info message buffer!\n");
+        g_print("Failed to allocate err message buffer!\n");
         return -1;
     }
 
@@ -114,7 +114,7 @@ gint msgbox_err(const gchar *msg, ...) {
     content = gtk_message_dialog_get_message_area(GTK_MESSAGE_DIALOG(msg_err));
 
     if (!content) {
-        g_print("Failed to get info message box content!\n");
+        g_print("Failed to get err message box content!\n");
 
         g_free((void *)msg_tmp);
         return -1;
@@ -123,7 +123,7 @@ gint msgbox_err(const gchar *msg, ...) {
     label = gtk_label_new(msg_tmp);
 
     if (!label) {
-        g_print("Failed to create new info message box label!\n");
+        g_print("Failed to create new err message box label!\n");
 
         g_free((void *)msg_tmp);
         return -1;
